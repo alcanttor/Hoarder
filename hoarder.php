@@ -100,7 +100,7 @@ function hoarder_send_notification($user_id, $new_role, $old_roles)
 		
         $json_object['metaData'] = array();
 		$json_object['metaData']['trigger_desc'] = 'Role Change';
-		$json_object['metaData']['site_name'] = 'somesite.com';
+		$json_object['metaData']['site_name'] = 'uglypeople.com';
 		$json_object['metaData']['site_token'] = '1592380651459uglypeople.com';
 		
         $json_object['metaData']['email_subject'] = 'Role Change Notification';
