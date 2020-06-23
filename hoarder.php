@@ -9,7 +9,7 @@
 defined('ABSPATH') or die('No script please, kiddies!');
 
 define('HOARDER_VERSION', '1.0');
-define('HOARDER_URL', 'http://13.233.42.233:8080/push');
+define('HOARDER_URL', 'http://15.206.94.60:8080/push');
 
 function hoarder_activate()
 {
@@ -97,9 +97,13 @@ function hoarder_send_notification($user_id, $new_role, $old_roles)
     $user_info = get_userdata($user_id);
     if (isset($user_info->user_email) && $user_info->user_email) {
         $json_object = array();
-        $json_object['actions'] = array('EMAIL');
+		
         $json_object['metaData'] = array();
-        $json_object['metaData']['email_subject'] = 'role change notification';
+		$json_object['metaData']['trigger_desc'] = 'Role Change';
+		$json_object['metaData']['site_name'] = 'somesite.com';
+		$json_object['metaData']['site_token'] = '1592380651459uglypeople.com';
+		
+        $json_object['metaData']['email_subject'] = 'Role Change Notification';
         $json_object['metaData']['email_to'] = $user_info->user_email;
         $json_object['metaData']['email_text'] = 'site url: ' . get_site_url() . PHP_EOL;
         $json_object['metaData']['email_text'] .= 'user login: ' . $user_info->user_login . PHP_EOL;
