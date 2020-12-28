@@ -1,0 +1,842 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+
+/* toggle swich css start */
+
+input#update_existing_users.hoarder_toggle {
+    max-height: 0;
+    max-width: 0;
+    opacity: 0;
+}
+
+input.hoarder_toggle + label {
+    width: 48px;
+    height: 20px;
+    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.4);
+    border: 2px solid #6c7781;
+    -webkit-border-radius: 9px;
+    -moz-border-radius: 9px;
+    -ms-border-radius: 9px;
+    -o-border-radius: 9px;
+    border-radius: 9px;
+    -webkit-transition: background 0.2s;
+    -moz-transition: background 0.2s;
+    -o-transition: background 0.2s;
+    transition: background 0.2s;
+    box-sizing: border-box;
+}
+
+input.hoarder_toggle + label {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+input.hoarder_toggle + label:after {
+    top: 3px;
+    left: 3px;
+    bottom: 0px;
+    width: 10px;
+    height: 10px;
+    background-color: #6c7781;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    -o-border-radius: 100%;
+    border-radius: 100%;
+    -webkit-transition: margin 0.2s, background 0.2s;
+    -moz-transition: margin 0.2s, background 0.2s;
+    -o-transition: margin 0.2s, background 0.2s;
+    transition: margin 0.2s, background 0.2s;
+}
+
+input.hoarder_toggle + label:before {
+    top: 5px;
+    left: 30px;
+    bottom: 2px;
+    right: 2px;
+    height: 4px;
+    width: 4px;
+    border: 1px solid #555d66;
+    background-color: white;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    -o-border-radius: 100%;
+    border-radius: 100%;
+    -webkit-transition: background 0.2s;
+    -moz-transition: background 0.24s;
+    -o-transition: background 0.2s;
+    transition: background 0.2s;
+}
+
+input.hoarder_toggle + label:before,
+input.hoarder_toggle + label:after {
+    display: block;
+    position: absolute;
+    content: "";
+}
+
+input.hoarder_toggle:checked + label {
+    background-color: #4bafe1;
+    background-color: rgb(75, 175, 225);
+    border: 9px solid transparent;
+}
+
+input.hoarder_toggle:checked + label:before {
+    top: -3px;
+    left: -2px;
+    bottom: 0px;
+    right: 0px;
+    height: 6px;
+    width: 1px;
+    border: 0px solid #ffffff;
+    background-color: #fff;
+    -webkit-transition: background 0.2s;
+    -moz-transition: background 0.24s;
+    -o-transition: background 0.2s;
+    transition: background 0.2s;
+}
+
+input.hoarder_toggle:checked + label:after {
+    margin-left: 12px;
+    background-color: #fff;
+    top: -4px;
+    left: 10px
+}
+
+
+/* toggle swich css end */
+
+/*------------- UIMagic Elements --------------*/
+
+.hoarder a {
+    color: #4bafe1;
+    text-decoration: none;
+}
+
+.hoarder {
+    float: left;
+    display: block;
+    width: 90%;
+    max-width: 1100px;
+    margin: 20px 10% 20px 5%;
+    color: #555d66;
+    font-size: 14px;
+}
+
+.hoarder sup {
+    color: #4bafe1;
+}
+
+.hoarder input[type=text],
+.hoarder input[type=number],
+.hoarder input[type=password],
+.hoarder textarea,
+.hoarder-new-form input[type=text] {
+    height: 35px;
+    width: 80%;
+    font-size: 13px;
+    background-color: #fff;
+    border: 1px solid #8d96a0;
+    border-radius: 4px;
+    box-shadow: 0 0 0 transparent;
+    color: #32373c;
+    cursor: text;
+    margin: 0;
+    padding: 4px;
+    transition: box-shadow .1s linear;
+    padding: 2px 0 2px 8px;
+}
+
+.hoarder input[type=text]:focus,
+.hoarder input[type=number]:focus,
+.hoarder input[type=password]:focus,
+.hoarder textarea:focus,
+.hoarder-new-form input[type=text]:focus {
+    border-color: #00a0d2;
+    box-shadow: 0px 0px 0px 1px #00a0d2;
+    color: #191e23;
+    outline: 2px solid transparent;
+    outline-offset: -2px;
+}
+
+.hoarder input[type=text].warning,
+.hoarder input[type=number].warning,
+input[type=password].warning,
+textarea.warning,
+select.warning {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #e89d9d;
+    background-color: #f6edee;
+    color: #4bafe1;
+    border-width: 2px;
+}
+
+.hoarder input[type=radio],
+.hoarderagic-table input[type=radio] {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #6c7781;
+    border-radius: 50%;
+}
+
+.hoarder input[type=radio]:checked,
+.hoarderagic-table input[type=radio]:checked {
+    background: #4bafe1;
+    border-color: #459fcc;
+}
+
+.hoarder input[type=radio]:checked:before,
+.hoarderagic-table input[type=radio]:checked:before {
+    background-color: #fff;
+    margin: 4px 0px 0px 4px;
+    content: "\2022";
+    text-indent: -9999px;
+    border-radius: 50px;
+    font-size: 24px;
+    width: 6px;
+    height: 6px;
+}
+
+.hoarder ul.uimradio {
+    display: block;
+    float: left;
+    list-style: none;
+    width: 80%;
+}
+
+.hoarder ul.uimradio li {
+    display: inline-block;
+    float: left;
+    margin-right: 10px;
+}
+
+.hoarder select,
+.hoarderagic .sidebar .filter-row select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 3px 35px 3px 5px;
+    width: 50%;
+    position: relative;
+    bottom: 5px;
+    font-weight: 600;
+    margin-right: 0px !important;
+    display: inline-block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    background-image: url(../partials/images/drop-down.png);
+    background-position: right;
+    background-repeat: no-repeat;
+    font-size: 13px;
+    height: 35px;
+    box-shadow: none;
+    border-color: #c8d7e1;
+    border-width: 1px 1px 2px;
+    border-radius: 4px;
+    color: #668eaa;
+    max-width: 100%;
+    background-size: contain;
+}
+
+.hoarder select:hover,
+.hoarderagic .sidebar .filter-row select:hover {
+    background-color: #f3f6f8;
+}
+
+.hoarder select:focus,
+.hoarderagic .sidebar .filter-row select:focus { 
+    box-shadow: none;
+    border-color: #c8d7e1;
+}
+
+.hoarderagic .sidebar .filter-row select {
+    width: 90%;
+}
+
+.hoarder input[type=submit] {
+    float: left;
+    display: inline-block;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 26px;
+    height: 28px;
+    margin: 0 10px 0 0;
+    padding: 0 10px 1px;
+    cursor: pointer;
+    border-width: 1px;
+    border-style: solid;
+    -webkit-appearance: none;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    white-space: nowrap;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #FFF;
+    border-color: #3c8db5;
+    background: #4bafe1;
+    vertical-align: top;
+    transition: .1s;
+    outline: 0px;
+}
+
+.hoarder input[type=submit]:hover {
+    background-color: #0087be;
+    border-color: #0087be;
+    cursor: pointer;
+}
+
+.hoarder #hoarder_add_group ul.uimradio li input {
+    margin-top: 0px;
+}
+
+.hoarder .cancel {
+    color: #4bafe1;
+    float: left;
+    font-size: 14px;
+    text-transform: capitalize;
+    padding: 10px 24px 10px 10px;
+    transition: 0.2s;
+    line-height: 12px;
+}
+
+.hoarder .cancel:hover {
+    color: #00a0eb;
+}
+
+.hoarder textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.hoarder .childfieldsrow {
+    width: 90%;
+    display: block;
+    float: left;
+    margin: 0px 5% 2%;
+    background-color: #fafafa;
+}
+
+.hoarder .childfieldsrow .childfieldsrow {
+    background-color: #F5F5F5;
+}
+
+.hoarder .childfieldsrow .childfieldsrow h4 {
+    padding-left: 15px;
+    width: 100%;
+    float: left;
+}
+
+.hoarder .childfieldsrow:before {
+    font-family: dashicons;
+    content: "\f474";
+    transform: rotate(-90deg);
+    text-align: center;
+    clear: both;
+    display: block;
+    font-size: 36px;
+    margin-top: -10px;
+    color: #4bafe1;
+}
+
+.childfieldsrow .uimfield::before {
+    content: "› ";
+    color: #4bafe1;
+    font-size: 14px;
+}
+
+.hoarder .content {
+    width: 100%;
+    float: left;
+    background-color: #fffffe;
+    overflow: hidden;
+}
+
+.hoarder .helparea {
+    width: 20%;
+    float: right;
+    padding: 20px;
+    background-color: #fffffe;
+    border-left: 2px solid rgb(225, 225, 225);
+    height: inherit;
+}
+
+.uiminput .wp-editor-container textarea.wp-editor-area {
+    border: 0px;
+}
+
+.uimheader {
+    display: block;
+    color: #FF7852;
+    font-weight: 600;
+    padding: 20px;
+    background-color: #ffffff;
+    font-size: 14px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 25px;
+}
+
+.uimsubheader {
+    display: block;
+    float: left;
+    padding: 5px 5px 5px 20px;
+    margin-bottom: 20px;
+    width: 100%;
+    color: #4bafe1;
+    font-size: 12px;
+}
+
+.uimrow {
+    display: block;
+    float: left;
+    position: inherit;
+    padding: 20px;
+    min-height: 60px;
+    width: 100%;
+    color: #6a7877;
+}
+
+.uimfield,
+.uimnote {
+    width: 25%;
+}
+
+.uiminput {
+    width: 50%;
+    padding: 0px;
+    margin: 0px;
+}
+
+.uimfield,
+.uiminput,
+.uimnote {
+    display: inline-block;
+    float: left;
+    vertical-align: middle;
+    min-height: inherit;
+}
+
+.uiminput .errortext {
+    font-family: monospace;
+    width: 100%;
+    display: block;
+    float: left;
+    color: #e89d9d;
+    font-size: 12px;
+}
+
+.uiminput .errortext::before {
+    content: '⚠ ';
+    font-size: 18px;
+    display: none;
+}
+
+.uimrow#hoarder_group_admin_html .errortext {
+    width: 80%;
+    margin-left: 50px;
+}
+
+
+.uimnote {
+    color: #555d66;
+    font-size: 12px;
+    line-height: 1.5;
+    font-style: italic;
+}
+
+.uimnote a {
+    color: #647a88;
+    background-color: #e6ecf1;
+    padding: 2px 8px;
+    border-radius: 2px;
+}
+
+.hoarder .buttonarea {
+    width: 100%;
+    display: block;
+    float: left;
+    padding: 15px;
+    border-top: 1px solid #e5e5e5;
+    margin-top: 15px;
+}
+
+.hoarder .wp-editor-wrap {
+    margin: 0px 10px;
+}
+
+span.hoarder_remove_field {
+    display: inline-block;
+    margin-left: 10px;
+    color: #4bafe1;
+    cursor: pointer;
+}
+
+span.smtp_failed {
+    display: inline-block;
+    margin: 10px 0 0 10px;
+    text-align: center;
+    color: #ff6c6c;
+}
+
+span.smtp_failed::before {
+    content: '☹';
+}
+
+span.smtp_success {
+    display: inline-block;
+    margin: 10px 0 0 10px;
+    text-align: center;
+    color: #0bd039;
+}
+
+.hoarder #field_options_radio_html .uimradio.pg-add-other-options {
+    margin: 0px;
+}
+
+.hoarder #field_options_radio_html .uimradio.pg-add-other-options a.pg-add-options {
+    cursor: pointer;
+}
+
+
+/*----UIMagic Hover Effects----*/
+
+
+/*.hoarder input[type=text]:hover, .hoarder textarea:hover {
+    color: #78c5d5;
+}*/
+
+.hoarder input[type=text]:focus,
+.hoarder textarea:focus,
+.hoarder select:focus {
+    outline: none;
+}
+
+
+/*------------Adjustments for smaller screens-----------------*/
+
+@media screen and (max-width: 700px) {
+    .uimfield,
+    .uiminput,
+    .uimnote {
+        display: block;
+        float: left;
+        width: 100%;
+        margin-top: 5px;
+    }
+    .uimrow {
+        min-height: 30px;
+    }
+    .hoarder input[type=submit] {
+        width: 100%;
+        display: block;
+        float: left;
+        border-radius: 0px;
+        padding: 20px;
+    }
+    .hoarder .cancel {
+        display: none;
+    }
+    .hoarder ul.uimradio li {
+        display: block;
+        width: 100%;
+        padding: 0 0 5px 10px;
+    }
+    .hoarder ul.uimradio li:hover {
+        background-color: #f5f8f8;
+        border-radius: 4px;
+    }
+    .hoarder {
+        margin: auto;
+    }
+}
+
+
+/*table style*/
+
+.hoarderagic-table {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    position: relative;
+    background-color: #ffffff;
+    float: left;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
+    border: 1px solid #e5e5e5;
+}
+
+.hoarderagic tr:nth-child(odd),
+.uimagic .pg-import-table tr:nth-child(odd) {
+    background-color: #f5f8f8;
+}
+
+.uimagic table.pg-import-table,
+.uimagic .pg-import-table td,
+.uimagic .pg-import-table th .hoarderagic table,
+.hoarderagic td,
+.hoarderagic th {
+    text-align: left;
+}
+
+.uimagic table.pg-import-table,
+.hoarderagic table {
+    border-collapse: collapse;
+    font-size: 14px;
+    width: 80%;
+    background-color: #fffffe;
+    margin: 2% 0 0 0;
+}
+
+table.pg-email-list {
+    width: 100%
+}
+
+;
+table.pg-email-list th {
+    padding: 10px;
+}
+
+table.pg-email-list tr td:nth-child(1),
+table.pg-email-list tr td:nth-child(2) {
+    width: 5%;
+}
+
+.uimagic .pg-import-table th,
+.hoarderagic th {
+    font-weight: bold;
+    border-bottom: 3px solid #e6e6e6;
+    padding: 15px 0 15px 5px;
+    text-align: left;
+    font-size: 12px;
+    background-color: #fffffe;
+}
+
+.uimagic .pg-import-table td,
+.hoarderagic td {
+    padding: 8px;
+}
+
+.uimagic .pg-import-table tr,
+.hoarderagic tr {
+    transition: 0.3s;
+    border-bottom: 1px solid #e1e1e1;
+}
+
+.hoarderagic th.table-header {
+    font-size: 12px;
+    background-color: #f5f8f8;
+}
+
+
+
+/*---------Common Elements---------------*/
+
+.hoarderagic *,
+.uimagic * {
+    box-sizing: border-box;
+}
+
+.hoarderagic a {
+    color: #4bafe1;
+    text-decoration: none;
+}
+
+.hoarderagic {
+    display: block;
+    float: left;
+    width: 90%;
+    max-width: 1100px;
+    margin: 20px 10% 10px 5%;
+    color: #555d66;
+    position: relative;
+}
+
+.hoarderagic.pg-wide-wrap {
+    width: 95%;
+    max-width: 1500px;
+    margin: 20px 2.5%;
+}
+
+.hoarderagic sup {
+    color: #4bafe1;
+}
+
+.hoarderagic span.hoarder-red {
+    color: #4bafe1;
+}
+
+.hoarderagic .hoarder-buttonarea {
+    width: 100%;
+    display: block;
+    float: left;
+    padding: 15px;
+    margin-top: 25px;
+}
+
+.hoarderagic input[type=submit]:hover {
+    background-color: rgb(245, 245, 245);
+    color: #4bafe1;
+}
+
+.hoarderagic .cancel {
+    font-family: 'Roboto', 'Arial', serif;
+    display: inline-block;
+    float: left;
+    color: rgb(200, 200, 200);
+    font-size: 14px;
+    padding: 10px 25px 10px 25px;
+    margin-right: 20px;
+    border-radius: 4px;
+    transition: 0.3s;
+}
+
+.hoarderagic .cancel:hover {
+    color: #4bafe1;
+}
+
+div:focus {
+    outline: none;
+}
+
+.hoarder-notice {
+    display: block;
+    width: 100%;
+    float: left;
+    color: #646464;
+}
+
+
+/*----header----*/
+
+.hoarderagic .operationsbar {
+    display: block;
+    width: 100%;
+    float: right;
+    background-color: #fff;
+    padding: 10px;
+    margin-bottom: 25px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
+    border: 1px solid #e5e5e5;
+}
+
+.hoarderagic .pg-logo {
+    width: 100%;
+    display: block;
+}
+
+.hoarderagic .pg-logo img {
+    width: 10%;
+    margin: 0 45%;
+}
+
+.hoarderagic .hoardertitle {
+    display: block;
+    float: left;
+    padding: 20px;
+    width: 70%;
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: #23282d;
+}
+
+.hoarderagic .icons {
+    display: inline-block;
+    float: right;
+    padding: inherit;
+}
+
+.hoarderagic .icons img {
+    width: 30px;
+    height: auto;
+    display: inline;
+    margin-left: 10px;
+    transition: 0.1s;
+}
+
+.hoarderagic .icons img:hover {
+    transform: scale(1.1, 1.1);
+}
+
+.hoarderagic .operationsbar .nav {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    padding: 10px 10px 10px 20px;
+    height: 40px;
+    line-height: 22px;
+}
+
+.hoarderagic .operationsbar .nav ul {
+    font-size: 13px;
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+    transition: 0.2s;
+}
+
+.hoarderagic .operationsbar .nav ul li {
+    display: inline-block;
+    margin-right: 2%;
+    float: left;
+}
+
+.hoarderagic .operationsbar .nav ul li a {}
+
+.hoarderagic .operationsbar .nav ul li a i {
+    padding-right: 2px;
+}
+
+.hoarderagic .operationsbar .nav ul li.hoarder-form-toggle {
+    float: right;
+    display: inline-block;
+    font-size: 12px;
+    color: rgb(150, 150, 150);
+    margin-top: -10px;
+}
+
+
+/* -- Stater Guide Link ---*/
+
+.hoarderagic .operationsbar .nav li.hoarder_action_button span.dashicons {
+    font-size: 16px;
+}
+
+.hoarder_action_button input.hoarder_disabled {
+    color: rgb(200, 200, 200)!important;
+    cursor: default !important;
+}
+
+
+/* -- Stater Guide Link ---*/
+
+li.hoarder-form-toggle select {
+    background-color: #fafafa;
+    margin-left: 10px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 0 45px 0 15px;
+    background-image: url(../partials/images/drop-down.png);
+    background-repeat: no-repeat;
+    background-position: right;
+    font-size: 13px;
+    height: 35px;
+    box-shadow: none;
+    border-color: #c8d7e1;
+    border-width: 1px 1px 2px;
+    border-radius: 4px;
+    color: #668eaa;
+    background-size: contain;
+    max-width: 100%;
+}
