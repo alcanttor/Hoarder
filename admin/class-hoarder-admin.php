@@ -207,7 +207,7 @@ class Hoarder_Admin {
                        $user_info = get_userdata($user_id);
                        $user_email = $user_info->user_email;
                        $time = current_time('mysql');
-                       $url = 'http://18.220.198.104:8765/force-door/gateway';
+                       $url = 'http://3.133.93.25:8765/force-door/gateway';
                        $response = array('rule'=>$role,'user'=>$user_info,'date_time'=>$time);
                        $request->hoarder_send_response($url, $response);
                         
@@ -237,7 +237,7 @@ class Hoarder_Admin {
                        $user_info = get_userdata($user_id);
                        $user_email = $user_info->user_email;
                        $time = current_time('mysql');
-                       $url = 'http://18.220.198.104:8765/force-door/gateway';
+                       $url = 'http://3.133.93.25:8765/force-door/gateway';
 //                       $role_array = array();
 //                       foreach($role as $key=>$value)
 //                       {
@@ -280,7 +280,7 @@ class Hoarder_Admin {
                     {
                        
                        $time = current_time('mysql');
-                       $url = 'http://18.220.198.104:8765/force-door/gateway';
+                       $url = 'http://3.133.93.25:8765/force-door/gateway';
                        $response = array('rule'=>$role,'user'=>$user,'date_time'=>$time);
                        $request->hoarder_send_response($url, $response);
                         
@@ -310,7 +310,7 @@ class Hoarder_Admin {
                        $user_info = get_userdata($user_id);
                        $user_email = $user_info->user_email;
                        $time = current_time('mysql');
-                       $url = 'http://18.220.198.104:8765/force-door/gateway';
+                       $url = 'http://3.133.93.25:8765/force-door/gateway';
                        $response = array('rule'=>$role,'user'=>$user_info,'date_time'=>$time);
                        $request->hoarder_send_response($url, $response);
                         
@@ -346,7 +346,7 @@ class Hoarder_Admin {
                                $user_info = get_userdata($user_id);
                                $user_email = $user_info->user_email;
                                $time = current_time('mysql');
-                               $url = 'http://18.220.198.104:8765/force-door/gateway';
+                               $url = 'http://3.133.93.25:8765/force-door/gateway';
                                $response = array('rule'=>$role,'user'=>$user_info,'date_time'=>$time);
                                $request->hoarder_send_response($url, $response);
                                
@@ -389,7 +389,7 @@ class Hoarder_Admin {
                                $user_info = get_userdata($user_id);
                                $user_email = $user_info->user_email;
                                $time = current_time('mysql');
-                               $url = 'http://18.220.198.104:8765/force-door/gateway';
+                               $url = 'http://3.133.93.25:8765/force-door/gateway';
                                $response = array('rule'=>$role,'user'=>$user_info,'date_time'=>$time);
                                $request->hoarder_send_response($url, $response);
                                
@@ -432,7 +432,7 @@ class Hoarder_Admin {
                                $user_info = get_userdata($user_id);
                                $user_email = $user_info->user_email;
                                $time = current_time('mysql');
-                               $url = 'http://18.220.198.104:8765/force-door/gateway';
+                               $url = 'http://3.133.93.25:8765/force-door/gateway';
                                $response = array('rule'=>$role,'user'=>$user_info,'date_time'=>$time);
                                $request->hoarder_send_response($url, $response);
                                
@@ -477,7 +477,7 @@ class Hoarder_Admin {
                        $user_info = get_userdata($user_id);
                        $user_email = $user_info->user_email;
                        $time = current_time('mysql');
-                       $url = 'http://18.220.198.104:8765/force-door/gateway';
+                       $url = 'http://3.133.93.25:8765/force-door/gateway';
                        $response = array('rule'=>$role,'user'=>$user_info,'date_time'=>$time);
                        $request->hoarder_send_response($url, $response);
 
@@ -511,7 +511,7 @@ class Hoarder_Admin {
                     if($end_condition)
                     {
                        $time = current_time('mysql');
-                       $url = 'http://18.220.198.104:8765/force-door/gateway';
+                       $url = 'http://3.133.93.25:8765/force-door/gateway';
                        $response = array('rule'=>$role,'user'=>$user,'date_time'=>$time);
                        $request->hoarder_send_response($url, $response);
                         
@@ -545,7 +545,7 @@ class Hoarder_Admin {
                     if($end_condition)
                     {
                        $time = current_time('mysql');
-                       $url = 'http://18.220.198.104:8765/force-door/gateway';
+                       $url = 'http://3.133.93.25:8765/force-door/gateway';
                        $response = array('rule'=>$role,'user'=>$user,'date_time'=>$time);
                        $request->hoarder_send_response($url, $response);
                         
