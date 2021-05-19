@@ -13,7 +13,7 @@ $dbhandler = new HOARDER_DBhandler;
 $hoarderrequests = new HOARDER_request;
 
 $condition = array('4'=>1,'5'=>0,'6'=>1);
-$regularexpression = '4&&5||6';
+$regularexpression = '4||5';
 $string = $hoarderrequests->hoarder_final_condition_result($condition,$regularexpression);
 //$result = eval("return (".$string.");");
 if($string){

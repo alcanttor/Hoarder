@@ -75,7 +75,7 @@ class Hoarder {
 			$this->version = '1.0.0';
 		}
 		$this->hoarder = 'hoarder';
-                $this->url = 'https://profilegrid.co/api.php';
+                $this->url = 'http://3.133.93.25:8765';
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -167,8 +167,21 @@ class Hoarder {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
                 $this->loader->add_action( 'admin_menu', $plugin_admin, 'hoarder_admin_menu' );
                 $this->loader->add_action( 'wp_ajax_hoarder_api_verification', $plugin_admin, 'hoarder_api_verification' );
-                $this->loader->add_action('hoarder_fetch_rules', $plugin_admin, 'hoarder_fetch_rules');
-                $this->loader->add_action( 'set_user_role',$plugin_admin,'hoarder_change_user_role', 10, 3 ); 
+                $this->loader->add_action( 'wp_ajax_hoarder_fetch_rules', $plugin_admin, 'hoarder_fetch_rules' );
+                //$this->loader->add_action('hoarder_fetch_rules', $plugin_admin, 'hoarder_fetch_rules');
+                $this->loader->add_action( 'set_user_role',$plugin_admin,'hoarder_change_user_role', 10, 3 );
+                $this->loader->add_action( 'user_register',$plugin_admin,'hoarder_add_new_user', 10, 1);
+                $this->loader->add_action('password_reset',$plugin_admin, 'hoarder_password_reset',10,2);
+                $this->loader->add_action( 'personal_options_update', $plugin_admin, 'hoarder_update_user_fields' );
+		$this->loader->add_action( 'edit_user_profile_update', $plugin_admin, 'hoarder_update_user_fields' );
+                $this->loader->add_filter( 'insert_user_meta', $plugin_admin, 'hoarder_activate_user',10,3 );
+                $this->loader->add_filter( 'insert_user_meta', $plugin_admin, 'hoarder_deactivate_user',10,3 );
+                $this->loader->add_filter( 'insert_user_meta', $plugin_admin, 'hoarder_password_changed_by_user',10,3 );
+                $this->loader->add_action( 'profile_update', $plugin_admin,'hoarder_profile_update' );
+                $this->loader->add_action( 'woocommerce_order_status_failed', $plugin_admin, 'hoarder_order_failed', 10, 1);
+                $this->loader->add_action('woocommerce_order_status_processing', $plugin_admin, 'hoarder_order_success', 10, 1);
+                $this->loader->add_action( 'woocommerce_order_status_completed', $plugin_admin, 'hoarder_order_success', 10, 1);
+                //$this->loader->add_action('change_inventry')
 
 	}
 

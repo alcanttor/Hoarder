@@ -44,3 +44,12 @@ function verify_hoarder()
         jQuery('#hoarder_response').html(response);
     });
 }
+
+function fetch_hoarder_rules()
+{
+     //return false;
+    var data = {'action': 'hoarder_fetch_rules'};
+    jQuery.post(hoarder_ajax_object.ajax_url, data, function(response) {
+        jQuery('#hoarder_response').html(response);
+    });
+}

@@ -62,6 +62,7 @@ if(filter_input(INPUT_POST,'submit_settings'))
              <div id="hoarder_response"></div>
             </div>
            <div class="uimnote"><span onclick="verify_hoarder()">Click to verify</span></div>
+            <div class="uimnote"><span onclick="fetch_hoarder_rules()">Click to fetch rules</span></div>
         </div>
 
             

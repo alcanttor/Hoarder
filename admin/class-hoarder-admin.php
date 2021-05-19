@@ -126,10 +126,10 @@ class Hoarder_Admin {
         {
             $request = new HOARDER_request;
             $dbhandler = new HOARDER_DBhandler;
-            $url = 'https://profilegrid.co/api-rules.php';
-            $rules = $request->hoarder_fetch_rules($url);
-           // $rules = $request->hoarder_fetch_rules($this->url);
+            $rules = $request->hoarder_fetch_rules($this->url);
+            //print_r($rules);
             $request->hoarder_save_rules($rules);
+            die;
             
         }
 
@@ -144,9 +144,10 @@ class Hoarder_Admin {
             //print_r($result);
             if(isset($result) && !empty($result['jwt']))
             {
-               $dbhandler->update_global_option_value('hoarder_token',$result->jwt);
-               $dbhandler->update_global_option_value('hoarder_userId',$result->userId);
-               $dbhandler->update_global_option_value('hoarder_siteId',$result->siteId);
+               $dbhandler->update_global_option_value('hoarder_token',$result['jwt']);
+               $dbhandler->update_global_option_value('hoarder_userId',$result['userId']);
+               $dbhandler->update_global_option_value('hoarder_siteId',$result['siteId']);
+               $dbhandler->update_global_option_value('hoarder_siteId','2');
                _e('Verified','hoarder');
             }
             else 
@@ -184,6 +185,37 @@ class Hoarder_Admin {
             }
         }
         
+        
+        public function hoarder_add_new_user($user_id)
+        {
+            $dbhandler = new HOARDER_DBhandler;
+            $request = new HOARDER_request;
+            $identifier = 'RULES';
+            $where = array('status'=>1,'event'=>'USER_ACCOUNT_ACTIVITY');
+            $roles = $dbhandler->get_all_result($identifier,'*', $where);
+            $parameters = array('user_id'=>$user_id,'UserProfileActivity'=>'userCreated');
+            if(!empty($roles))
+            {
+                foreach ($roles as $role) 
+                {
+                    $rulesDto = maybe_unserialize($role->rulesDto);
+                    $ruleExpression = $role->ruleExpression;
+                    $conditions = $request->hoarder_check_conditions($rulesDto,$parameters);
+                    $end_condition = $request->hoarder_final_condition_result($conditions,$ruleExpression);
+                    if($end_condition)
+                    {
+                       $user_info = get_userdata($user_id);
+                       $user_email = $user_info->user_email;
+                       $time = current_time('mysql');
+                       $url = 'http://18.220.198.104:8765/force-door/gateway';
+                       $response = array('rule'=>$role,'user'=>$user_info,'date_time'=>$time);
+                       $request->hoarder_send_response($url, $response);
+                        
+                    }     
+                }
+            }
+        }
+        
         public function hoarder_change_user_role($user_id,$role,$old_roles)
         {
             $dbhandler = new HOARDER_DBhandler;
@@ -200,26 +232,326 @@ class Hoarder_Admin {
                     $ruleExpression = $role->ruleExpression;
                     $conditions = $request->hoarder_check_conditions($rulesDto,$parameters);
                     $end_condition = $request->hoarder_final_condition_result($conditions,$ruleExpression);
-                    
                     if($end_condition)
                     {
-                        echo 'true';
-                       $url = 'https://profilegrid.co/get_response.php';
-                       $response = array('userid'=>1,'username'=>'test');
-                        $request->hoarder_send_response($url, $response);
+                       $user_info = get_userdata($user_id);
+                       $user_email = $user_info->user_email;
+                       $time = current_time('mysql');
+                       $url = 'http://18.220.198.104:8765/force-door/gateway';
+//                       $role_array = array();
+//                       foreach($role as $key=>$value)
+//                       {
+//                           $role_array[$key] = maybe_unserialize($value);
+//                       }
+                      $role_array = json_decode(json_encode($role), true);
+                      
+                       //$role_array = array('previousRole'=>'admin','newRole'=>'super admin','UserEmail'=>'luna.varun@gmail.com','UserName'=>'Varun','roleUpdate'=>'upGrade');
+                      // $accesstoken = $dbhandler->get_global_option_value('hoarder_token','');
+                       $accesstoken = $dbhandler->get_global_option_value('hoarder_api_key','');
+                       $response = array('dataMap'=>$role_array,'event'=>'ROLE_CHANGE','siteToken'=>$accesstoken);
+                       
+                       
+                       //$response = array('rule'=>$role,'user'=>$user_info,'date_time'=>$time);
+                       $request->hoarder_send_response($url, $response);
                         
-                    }
-                    else
-                    {
-                        echo 'false';
-                    }        
-                    
+                    }     
                 }
                 
+            }
+        }
+        
+        public function hoarder_password_reset($user, $new_pass)
+        {
+            $dbhandler = new HOARDER_DBhandler;
+            $request = new HOARDER_request;
+            $identifier = 'RULES';
+            $where = array('status'=>1,'event'=>'USER_ACCOUNT_ACTIVITY');
+            $roles = $dbhandler->get_all_result($identifier,'*', $where);
+            $parameters = array('user_id'=>$user_id,'UserProfileActivity'=>'forgotPassword');
+            if(!empty($roles))
+            {
+                foreach ($roles as $role) 
+                {
+                    $rulesDto = maybe_unserialize($role->rulesDto);
+                    $ruleExpression = $role->ruleExpression;
+                    $conditions = $request->hoarder_check_conditions($rulesDto,$parameters);
+                    $end_condition = $request->hoarder_final_condition_result($conditions,$ruleExpression);
+                    if($end_condition)
+                    {
+                       
+                       $time = current_time('mysql');
+                       $url = 'http://18.220.198.104:8765/force-door/gateway';
+                       $response = array('rule'=>$role,'user'=>$user,'date_time'=>$time);
+                       $request->hoarder_send_response($url, $response);
+                        
+                    }     
+                }
+            }
+        }
+        
+        public function hoarder_update_user_fields($user_id)
+        {
+            $dbhandler = new HOARDER_DBhandler;
+            $request = new HOARDER_request;
+            $identifier = 'RULES';
+            $where = array('status'=>1,'event'=>'USER_ACCOUNT_ACTIVITY');
+            $roles = $dbhandler->get_all_result($identifier,'*', $where);
+            $parameters = array('user_id'=>$user_id,'UserProfileActivity'=>'profileUpdate');
+            if(!empty($roles))
+            {
+                foreach ($roles as $role) 
+                {
+                    $rulesDto = maybe_unserialize($role->rulesDto);
+                    $ruleExpression = $role->ruleExpression;
+                    $conditions = $request->hoarder_check_conditions($rulesDto,$parameters);
+                    $end_condition = $request->hoarder_final_condition_result($conditions,$ruleExpression);
+                    if($end_condition)
+                    {
+                       $user_info = get_userdata($user_id);
+                       $user_email = $user_info->user_email;
+                       $time = current_time('mysql');
+                       $url = 'http://18.220.198.104:8765/force-door/gateway';
+                       $response = array('rule'=>$role,'user'=>$user_info,'date_time'=>$time);
+                       $request->hoarder_send_response($url, $response);
+                        
+                    }     
+                }
+            }
+        }
+        
+        public function hoarder_activate_user($meta, $user, $update)
+        {
+            // if not updating the field, because it is a create, do nothing  
+                if( true !== $update ) {
+                     return $meta;
+                 }
+                 $old_meta = get_user_meta( $user->ID );
+                if(isset($meta['rm_user_status']) && $old_meta['rm_user_status']!== $meta['rm_user_status'] && $meta['rm_user_status']=="0") {
+                    $dbhandler = new HOARDER_DBhandler;
+                    $request = new HOARDER_request;
+                    $identifier = 'RULES';
+                    $where = array('status'=>1,'event'=>'USER_ACCOUNT_ACTIVITY');
+                    $roles = $dbhandler->get_all_result($identifier,'*', $where);
+                    $parameters = array('user_id'=>$user_id,'UserProfileActivity'=>'activate');
+                    if(!empty($roles))
+                    {
+                        foreach ($roles as $role) 
+                        {
+                            $rulesDto = maybe_unserialize($role->rulesDto);
+                            $ruleExpression = $role->ruleExpression;
+                            $conditions = $request->hoarder_check_conditions($rulesDto,$parameters);
+                            $end_condition = $request->hoarder_final_condition_result($conditions,$ruleExpression);
+                            if($end_condition)
+                            {
+                               $user_info = get_userdata($user_id);
+                               $user_email = $user_info->user_email;
+                               $time = current_time('mysql');
+                               $url = 'http://18.220.198.104:8765/force-door/gateway';
+                               $response = array('rule'=>$role,'user'=>$user_info,'date_time'=>$time);
+                               $request->hoarder_send_response($url, $response);
+                               
+                            }     
+                        }
+                    }
+                    
+                    
+
+                }
+                 
+
+                 return $meta;
+        }
+        
+        public function hoarder_deactivate_user($meta, $user, $update)
+        {
+            // if not updating the field, because it is a create, do nothing  
+                if( true !== $update ) {
+                     return $meta;
+                 }
+                 $old_meta = get_user_meta( $user->ID );
+                if(isset($meta['rm_user_status']) && $old_meta['rm_user_status']!== $meta['rm_user_status'] && $meta['rm_user_status']=="1") {
+                    $dbhandler = new HOARDER_DBhandler;
+                    $request = new HOARDER_request;
+                    $identifier = 'RULES';
+                    $where = array('status'=>1,'event'=>'USER_ACCOUNT_ACTIVITY');
+                    $roles = $dbhandler->get_all_result($identifier,'*', $where);
+                    $parameters = array('user_id'=>$user_id,'UserProfileActivity'=>'deactivate');
+                    if(!empty($roles))
+                    {
+                        foreach ($roles as $role) 
+                        {
+                            $rulesDto = maybe_unserialize($role->rulesDto);
+                            $ruleExpression = $role->ruleExpression;
+                            $conditions = $request->hoarder_check_conditions($rulesDto,$parameters);
+                            $end_condition = $request->hoarder_final_condition_result($conditions,$ruleExpression);
+                            if($end_condition)
+                            {
+                               $user_info = get_userdata($user_id);
+                               $user_email = $user_info->user_email;
+                               $time = current_time('mysql');
+                               $url = 'http://18.220.198.104:8765/force-door/gateway';
+                               $response = array('rule'=>$role,'user'=>$user_info,'date_time'=>$time);
+                               $request->hoarder_send_response($url, $response);
+                               
+                            }     
+                        }
+                    }
+                    
+                    
+
+                }
+                 
+
+                 return $meta;
+        }
+        
+        public function hoarder_password_changed_by_user($meta, $user, $update)
+        {
+            // if not updating the field, because it is a create, do nothing  
+                if( true !== $update ) {
+                     return $meta;
+                 }
+                 $old_meta = get_user_meta( $user->ID );
+                if(isset($meta['user_pass']) && $old_meta['user_pass']!== $meta['user_pass']) {
+                    $dbhandler = new HOARDER_DBhandler;
+                    $request = new HOARDER_request;
+                    $identifier = 'RULES';
+                    $where = array('status'=>1,'event'=>'USER_ACCOUNT_ACTIVITY');
+                    $roles = $dbhandler->get_all_result($identifier,'*', $where);
+                    $parameters = array('user_id'=>$user_id,'UserProfileActivity'=>'passwordChange');
+                    if(!empty($roles))
+                    {
+                        foreach ($roles as $role) 
+                        {
+                            $rulesDto = maybe_unserialize($role->rulesDto);
+                            $ruleExpression = $role->ruleExpression;
+                            $conditions = $request->hoarder_check_conditions($rulesDto,$parameters);
+                            $end_condition = $request->hoarder_final_condition_result($conditions,$ruleExpression);
+                            if($end_condition)
+                            {
+                               $user_info = get_userdata($user_id);
+                               $user_email = $user_info->user_email;
+                               $time = current_time('mysql');
+                               $url = 'http://18.220.198.104:8765/force-door/gateway';
+                               $response = array('rule'=>$role,'user'=>$user_info,'date_time'=>$time);
+                               $request->hoarder_send_response($url, $response);
+                               
+                            }     
+                        }
+                    }
+                    
+                    
+
+                }
+                 
+
+                 return $meta;
+        }
+        
+        public function hoarder_profile_update( $user_id ) 
+        {
+            if ( ! isset( $_POST['pass1'] ) || '' == $_POST['pass1'] ) {
+                return;
+            }
+            elseif(!$_POST['pass1'] === $_POST['pass2']){
+                return;
+            }
+            // password changed...
+            
+            $dbhandler = new HOARDER_DBhandler;
+            $request = new HOARDER_request;
+            $identifier = 'RULES';
+            $where = array('status'=>1,'event'=>'USER_ACCOUNT_ACTIVITY');
+            $roles = $dbhandler->get_all_result($identifier,'*', $where);
+            $parameters = array('user_id'=>$user_id,'UserProfileActivity'=>'passwordChange');
+            if(!empty($roles))
+            {
+                foreach ($roles as $role) 
+                {
+                    $rulesDto = maybe_unserialize($role->rulesDto);
+                    $ruleExpression = $role->ruleExpression;
+                    $conditions = $request->hoarder_check_conditions($rulesDto,$parameters);
+                    $end_condition = $request->hoarder_final_condition_result($conditions,$ruleExpression);
+                    if($end_condition)
+                    {
+                       $user_info = get_userdata($user_id);
+                       $user_email = $user_info->user_email;
+                       $time = current_time('mysql');
+                       $url = 'http://18.220.198.104:8765/force-door/gateway';
+                       $response = array('rule'=>$role,'user'=>$user_info,'date_time'=>$time);
+                       $request->hoarder_send_response($url, $response);
+
+                    }     
+                }
+            }
+            
+        }
+        
+        public function hoarder_order_failed($order_id)
+        {
+            $dbhandler = new HOARDER_DBhandler;
+            $request = new HOARDER_request;
+            $identifier = 'RULES';
+            // Get an instance of the WC_Order object (same as before)
+            $order = wc_get_order( $order_id );
+            $user_id   = $order->get_user_id(); // Get the costumer ID
+            $user      = $order->get_user(); // Get the WP_User object
+            
+            $where = array('status'=>1,'event'=>'PAYMENT');
+            $roles = $dbhandler->get_all_result($identifier,'*', $where);
+            $parameters = array('order_id'=>$order_id,'paymentResult'=>'Fail');
+            if(!empty($roles))
+            {
+                foreach ($roles as $role) 
+                {
+                    $rulesDto = maybe_unserialize($role->rulesDto);
+                    $ruleExpression = $role->ruleExpression;
+                    $conditions = $request->hoarder_check_conditions($rulesDto,$parameters);
+                    $end_condition = $request->hoarder_final_condition_result($conditions,$ruleExpression);
+                    if($end_condition)
+                    {
+                       $time = current_time('mysql');
+                       $url = 'http://18.220.198.104:8765/force-door/gateway';
+                       $response = array('rule'=>$role,'user'=>$user,'date_time'=>$time);
+                       $request->hoarder_send_response($url, $response);
+                        
+                    }     
+                }
                 
-               
+            }
+        }
+        
+        public function hoarder_order_success($order_id)
+        {
+            $dbhandler = new HOARDER_DBhandler;
+            $request = new HOARDER_request;
+            $identifier = 'RULES';
+            // Get an instance of the WC_Order object (same as before)
+            $order = wc_get_order( $order_id );
+            $user_id   = $order->get_user_id(); // Get the costumer ID
+            $user      = $order->get_user(); // Get the WP_User object
+            
+            $where = array('status'=>1,'event'=>'PAYMENT');
+            $roles = $dbhandler->get_all_result($identifier,'*', $where);
+            $parameters = array('order_id'=>$order_id,'paymentResult'=>'Success');
+            if(!empty($roles))
+            {
+                foreach ($roles as $role) 
+                {
+                    $rulesDto = maybe_unserialize($role->rulesDto);
+                    $ruleExpression = $role->ruleExpression;
+                    $conditions = $request->hoarder_check_conditions($rulesDto,$parameters);
+                    $end_condition = $request->hoarder_final_condition_result($conditions,$ruleExpression);
+                    if($end_condition)
+                    {
+                       $time = current_time('mysql');
+                       $url = 'http://18.220.198.104:8765/force-door/gateway';
+                       $response = array('rule'=>$role,'user'=>$user,'date_time'=>$time);
+                       $request->hoarder_send_response($url, $response);
+                        
+                    }     
+                }
                 
-                die;
             }
         }
         
